@@ -1,7 +1,5 @@
 <template>
     <div class="mt20">
-        <h5>efiefeif</h5>
-        <hr>
         <slot name="list" v-if="count > 0">
             <div v-for="n in count"
                 :key="n - 1">

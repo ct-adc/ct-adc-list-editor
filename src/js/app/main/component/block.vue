@@ -28,7 +28,7 @@
     </div>
 </template>
 <script>
-import ListEditor from 'list-editor-block';
+import {Block as ListEditor} from 'index.js';
 export default {
     components: {
         ListEditor

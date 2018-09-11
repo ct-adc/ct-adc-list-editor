@@ -61,7 +61,6 @@ removable | 是否可删 | Boolean Array | [] | 和外部数据length相同的�
 参数 | 说明 | 类型 | 默认值 | 可选值 | 描述 |
 --- | --- | --- | --- | ---- | ---
 visible | 是否可见 | Boolean Array | [] | 和外部数据length相同的数组，其中每一项为一个Boolean类型的值，表示该项是否可见 | 每项是否可见 |
-maxHeight | 内容区域的最大高度 | Number | 200 | 任意正整数，请根据项目决定，设置一个内容区域的保险高度 | 单位 px |
 duration | 动画持续时长 | Number | 500 | 任意正整数 | 动画持续时长 单位 ms |
 
 ### props for Inline

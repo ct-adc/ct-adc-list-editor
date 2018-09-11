@@ -4,8 +4,8 @@
 
 ## 组件示例图
 
-[!img](https://github.com/ct-adc/ct-adc-list-editor/blob/master/block.png)
-[!img](https://github.com/ct-adc/ct-adc-list-editor/blob/master/inline.png)
+![img](https://github.com/ct-adc/ct-adc-list-editor/blob/master/block.png)
+![!img](https://github.com/ct-adc/ct-adc-list-editor/blob/master/inline.png)
 
 
 ## 在线demo

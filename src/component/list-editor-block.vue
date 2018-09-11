@@ -26,9 +26,11 @@
                     </slot>
                 </div>
                 <transition v-on:enter="enter" v-on:leave="leave">
-                    <slot name="list-body" :index="n-1">
+                    <div v-show="visible[n-1]" style="overflow:hidden;">
+                        <slot name="list-body" :index="n-1">
 
-                    </slot>
+                        </slot>
+                    </div>
                 </transition>
             </div>
         </slot>

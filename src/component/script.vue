@@ -58,6 +58,9 @@ export default {
         }
     },
     methods: {
+        isRemovable(index){
+            return typeof this.removable[index] === 'undefined' || this.removable[index];
+        },
         add(){
             const isMaxLimited = this.maxCount !== -1;
             const addToLimit = this.count + this.step >= this.maxCount;
@@ -73,7 +76,7 @@ export default {
          * 删除项目
          */
         remove(index){
-            if (this.removable[index]){
+            if (typeof this.removable[index] === 'undefined' || this.removable[index]){
                 this.count = this.count - 1;
                 this.$emit('remove', index);
                 return true;

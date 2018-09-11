@@ -2,28 +2,32 @@
     <div class="mt20">
         <slot name="list" v-if="count > 0">
             <div v-for="n in count" :key="n - 1">
-                <div class="panel-heading mt20">
+                <div class="panel-heading mt20 pl20 pr20">
+                    <span class="glyphicon glyphicon-chevron-down pointer mr10"
+                        style="line-height:14px;"
+                        :class="visible[n-1] ? '' : 'overturn'"
+                        @click="toggle(n-1)">
+                    </span>
                     <slot name="list-head" :index="n-1">
                         <slot name="list-head-title" :index="n-1">
                             ({{n}})
                         </slot>
                         <span class="pull-right">
                             <slot name="list-head-remove" :index="n-1">
-                                <a class="pointer" 
-                                    :class="typeof removable[n-1] !== 'undefined' && removable[n-1] ? 'text-danger' : 'text-muted'" 
-                                    @click="typeof removable[n-1] !== 'undefined' && removable[n-1] ? remove(n-1) : null">删除
-                                </a>
+                                <button type="button" 
+                                    class="btn btn-xs btn-danger" 
+                                    :class="{disabled: isRemovable(n-1)}"
+                                    :disabled="isRemovable(n-1)" 
+                                    @click="isRemovable(n-1) ? remove(n-1) : null">
+                                    删除
+                                </button>
                             </slot>
-                            <span class="glyphicon glyphicon-chevron-down ml20 pointer"
-                                :class="visible[n-1] ? '' : 'overturn'"
-                                @click="toggle(n-1)">
-                            </span>
                         </span>
                     </slot>
                 </div>
                 <transition v-on:enter="enter" v-on:leave="leave">
                     <slot name="list-body" :index="n-1">
-    
+
                     </slot>
                 </transition>
             </div>
@@ -54,11 +58,6 @@
                     return [];
                 }
             },
-            // 内容区域的最大高度
-            maxHeight: {
-                type: Number,
-                default: 200
-            },
             // 动画持续时长 单位 ms
             duration: {
                 type: Number,
@@ -68,20 +67,30 @@
         methods: {
             // 动画
             enter: function(el, done) {
+                el.style.visible = 'invisible';
+                el.style.height = 'auto';
+                const height = el.clientHeight;
+
+                el.style.visible = 'visibile';
+                el.style.height = 0;
                 Velocity(el, {
-                    maxHeight: `${this.maxHeight}px`
+                    height: `${height}px`
                 }, {
-                    duration: this.duration
-                }, {
-                    complete: done
+                    duration: this.duration,
+                    complete: function() {
+                        el.style.height = 'auto';
+                        done();
+                    }
                 });
             },
             leave: function(el, done) {
+                const height = el.clientHeight;
+
+                el.style.height = height + 'px';
                 Velocity(el, {
-                    maxHeight: 0
+                    height: 0
                 }, {
-                    duration: this.duration
-                }, {
+                    duration: this.duration,
                     complete: done
                 });
             },
@@ -100,7 +109,7 @@
     
     .overturn {
         transform-origin: center center;
-        transform: rotate(180deg);
+        transform: rotate(-90deg);
         transition: transform 0.5s;
     }
     

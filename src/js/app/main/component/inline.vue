@@ -7,8 +7,8 @@
             :max-count="10" 
             add-button-text="新增定制" 
             remove-button-text="删除定制"
-            :removable="removable" 
             empty-text="为空定制" 
+            :removable="removable"
             @add="add" 
             @remove="remove">
             <template slot="head-form">
@@ -47,7 +47,7 @@ export default {
     },
     data(){
         return {
-            hasHead: false,
+            hasHead: true,
             items: [{
                 name: 'a1',
                 value: 'b1',

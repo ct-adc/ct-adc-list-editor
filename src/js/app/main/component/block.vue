@@ -17,8 +17,7 @@
             </span>
             <div slot="list-body" 
                 slot-scope="{index}" 
-                v-show="items[index].visible" 
-                style="maxHeight: 200px;overflow:hidden;">
+                v-show="items[index].visible" style="overflow:hidden;">
                 <div class="p20">
                     <input type="text" class="form-control" v-model="items[index].name">
                     <input type="text" class="form-control mt20" v-model="items[index].value">

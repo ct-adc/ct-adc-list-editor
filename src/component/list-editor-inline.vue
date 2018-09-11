@@ -31,9 +31,9 @@
                             <slot name="list-remove" v-if="n > minCount" :index="n-1">
                                 <button type="button" 
                                     class="btn btn-sm btn-danger pull-right"
-                                    :class="{disabled: typeof removable[n-1] !== 'undefined' && !removable[n-1]}"
-                                    :disabled="typeof removable[n-1] !== 'undefined' && !removable[n-1]"
-                                    @click="typeof removable[n-1] !== 'undefined' && removable[n-1] ? remove(n-1) : null">
+                                    :class="{disabled: !isRemovable(n-1)}"
+                                    :disabled="!isRemovable(n-1)"
+                                    @click="isRemovable(n-1) ? remove(n-1) : null">
                                     <span class="glyphicon glyphicon-trash"></span> {{removeButtonText}}
                                 </button>
                             </slot>

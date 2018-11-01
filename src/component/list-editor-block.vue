@@ -13,12 +13,26 @@
                             ({{n}})
                         </slot>
                         <span class="pull-right">
-                            <slot name="list-head-remove" :index="n-1">
-                                <button type="button" 
+                            <slot name="list-head-button" :index="n-1">
+                                <button type="button" v-if="buttons.order" 
+                                    class="btn btn-xs btn-primary"
+                                    :class="{disabled: !isItemUpOrderable(n-1)}"
+                                    :disabled="!isItemUpOrderable(n-1)"
+                                    @click="isItemUpOrderable(n-1) ? orderUp(n-1) : null">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> {{orderUpButtonText}}
+                                </button>
+                                <button type="button" v-if="buttons.order" 
+                                    class="btn btn-xs btn-primary"
+                                    :class="{disabled: !isItemDownOrderable(n-1)}"
+                                    :disabled="!isItemDownOrderable(n-1)"
+                                    @click="isItemDownOrderable(n-1) ? orderDown(n-1) : null">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> {{orderDownButtonText}}
+                                </button>
+                                <button type="button" v-if="buttons.remove" 
                                     class="btn btn-xs btn-danger" 
-                                    :class="{disabled: isRemovable(n-1)}"
-                                    :disabled="isRemovable(n-1)" 
-                                    @click="isRemovable(n-1) ? remove(n-1) : null">
+                                    :class="{disabled: !isItemRemovable(n-1)}"
+                                    :disabled="!isItemRemovable(n-1)" 
+                                    @click="isItemRemovable(n-1) ? remove(n-1) : null">
                                     删除
                                 </button>
                             </slot>

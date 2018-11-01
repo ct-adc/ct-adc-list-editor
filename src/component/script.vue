@@ -6,6 +6,14 @@ export default {
             type: String,
             default: '删除'
         },
+        orderUpButtonText: {
+            type: String,
+            default: '上移'
+        },
+        orderDownButtonText: {
+            type: String,
+            default: '下移'
+        },
         // 新增按钮的文字
         addButtonText: {
             type: String,
@@ -37,10 +45,26 @@ export default {
             default: '暂无数据'
         },
         // 每项是否可删除
-        removable: {
-            type: Array,
+        isRemovable: {
+            type: [Array, Object, Function],
             default(){
-                return [];
+                return ()=>true;
+            }
+        },
+        // 检测一项是否可调整排序
+        isOrderable: {
+            type: [Array, Object, Function],
+            default(){
+                return ()=>true;
+            }
+        },
+        buttons: {
+            type: Object,
+            default(){
+                return {
+                    order: true,
+                    remove: true
+                };
             }
         }
     },
@@ -58,8 +82,29 @@ export default {
         }
     },
     methods: {
-        isRemovable(index){
-            return typeof this.removable[index] === 'undefined' || this.removable[index];
+        isItemRemovable(index){
+            if (Array.isArray(this.isRemovable) || typeof this.isRemovable === 'object'){
+                return this.isRemovable[index];
+            }
+            if (typeof this.isRemovable === 'function'){
+                return this.isRemovable(index);
+            }
+            return true;
+        },
+        $_isItemOrderable(index){
+            if (Array.isArray(this.isOrderable) || typeof this.isOrderable === 'object'){
+                return this.isOrderable[index];
+            }
+            if (typeof this.isOrderable === 'function'){
+                return this.isOrderable(index);
+            }
+            return true;
+        },
+        isItemUpOrderable(index){
+            return index > 0 && this.$_isItemOrderable(index);
+        },
+        isItemDownOrderable(index){
+            return index < this.count - 1 && this.$_isItemOrderable(index);
         },
         add(){
             const isMaxLimited = this.maxCount !== -1;
@@ -76,12 +121,19 @@ export default {
          * 删除项目
          */
         remove(index){
-            if (typeof this.removable[index] === 'undefined' || this.removable[index]){
+            console.log(this.isItemRemovable(index));
+            if (this.isItemRemovable(index)){
                 this.count = this.count - 1;
                 this.$emit('remove', index);
                 return true;
             }
             return false;
+        },
+        orderUp(index){
+            this.$emit('order-up', index);
+        },
+        orderDown(index){
+            this.$emit('order-down', index);
         }
     },
     watch: {

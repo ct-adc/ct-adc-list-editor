@@ -98,7 +98,7 @@ module.exports = {
     'brace-style': [2, '1tbs', { 'allowSingleLine': true }],//强制在代码块中使用一致的大括号风格 允许块的开括号和闭括号在 同一行
     'block-scoped-var': 0,//强制把变量的使用限制在其定义的作用域范围内
     'one-var': [2, 'never'],//强制函数中的变量分开声明
-    'camelcase': [2, { 'properties': 'always' }],//强制使用骆驼拼写法命名约定 强制属性名称为驼峰风格
+  'camelcase': [2, { 'properties': 'always', 'allow': ['^\\\$_'] }],//强制使用骆驼拼写法命名约定 强制属性名称为驼峰风格
     "space-before-function-paren": [2, {//函数名之后不能有空格
       "anonymous": "never", //针对匿名函数表达式
       "named": "never", //针对命名的函数表达式

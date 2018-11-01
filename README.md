@@ -46,13 +46,25 @@ new Vue({
 参数 | 说明 | 类型 | 默认值 | 可选值 | 描述 |
 --- | --- | --- | --- | ---- | ---
 removeButtonText | 删除按钮的文字 | String | 删除 | 任意字符串 | 删除按钮上显示的文字 |
+orderUpButtonText | 上移按钮的文字 | String | 上移 | 任意字符串 | 上移按钮上显示的文字 |
+orderDownButtonText | 下移按钮的文字 | String | 下移 | 任意字符串 | 下移按钮上显示的文字 |
+buttons | 按钮显示 | Object | {remove: true, order: true} | 修改两个属性的值为true/false | 操作按钮的定制
 addButtonText | 添加按钮的文字 | String | 添加 | 任意字符串 | 添加按钮上显示的文字 |
 minCount | 至少几项 | Number | 0 | 任意正整数 / 0 | 列表至少要配几项 |
 maxCount | 最多几项 | Number | -1(即不限制) | 任意正整数 / 0 / -1 | 列表最多可以配几项 |
 initialCount | 起始有几项 | Number | 0 | 任意正整数 / 0 | 初始化时显示几项 |
 step | 步长 | Number | 1 | 任意正整数 | 点一次添加按钮添加几项 |
 emptyText | 为空文字 | String | 暂无数据 | 任意字符串 | 列表数量为0时显示的文字 |
-removable | 是否可删 | Boolean Array | [] | 和外部数据length相同的数组，其中每一项为一个Boolean类型的值，表示该项是否可删除 | 每项是否可被删除 |
+is-removable | 是否可删 | Boolean Array / Object / Function | ()=>true | 和外部数据length相同的数组，其中每一项为一个Boolean类型的值，表示该项是否可删除 | 每项是否可被删除 |
+is-orderable | 是否可移动 | Boolean Array / Object / Function | ()=>true | 见下方详情 | 每项是否可被移动 |
+
+#### is-removable / is-orderable
+
+* Array: 和外部数据length相同的数组，其中每一项为一个Boolean类型的值，表示该项是否可删除/移动
+
+* Object: 索引为key，值为Boolean类型的数据
+
+* Function: 参数为index(每一项的索引)，返回一个Boolean类型的值，表示该项是否可被删除/移动
 
 ### props for Block 
 
@@ -83,7 +95,7 @@ head-form | 头部的form部分，即title的位置 | 是 | index(当前项的�
 head-remove | 头部的删除按钮所在部分，一般不会配置相关的内容 | 是 | index(当前项的索引)
 list | 列表slot | 是 | index(当前项的索引)
 list-form | 列表的form部分，用来放置编辑的内容 | 是 | index(当前项的索引)
-list-remove | 列表的删除按钮所在部分，一般是一个删除按钮 | 是 | index(当前项的索引)
+list-button | 列表的删除按钮所在部分，一般是一个删除按钮 | 是 | index(当前项的索引)
 
 ### Block类型
 
@@ -92,7 +104,7 @@ slot名称 | 说明 | 是否有默认内容 | scope |
 list | 列表slot | 是 | index(当前项的索引)
 list-head | 标题栏 | 是 | index(当前项的索引)
 list-head-title | 标题栏title | 是 | index(当前项的索引)
-list-head-remove | 标题栏删除按钮部分 | 是 | index(当前项的索引)
+list-head-button | 标题栏删除按钮部分 | 是 | index(当前项的索引)
 list-form | 列表的form部分，用来放置编辑的内容 | 是 | index(当前项的索引)
 
 ## 方法

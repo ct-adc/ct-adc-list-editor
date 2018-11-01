@@ -28,12 +28,26 @@
                             </slot>
                         </div>
                         <div :class="secondGridClass">
-                            <slot name="list-remove" v-if="n > minCount" :index="n-1">
-                                <button type="button" 
-                                    class="btn btn-sm btn-danger pull-right"
-                                    :class="{disabled: !isRemovable(n-1)}"
-                                    :disabled="!isRemovable(n-1)"
-                                    @click="isRemovable(n-1) ? remove(n-1) : null">
+                            <slot name="list-button" v-if="n > minCount" :index="n-1">
+                                <button type="button" v-if="buttons.order"
+                                    class="btn btn-sm btn-primary"
+                                    :class="{disabled: !isItemUpOrderable(n-1)}"
+                                    :disabled="!isItemUpOrderable(n-1)"
+                                    @click="isItemUpOrderable(n-1) ? orderUp(n-1) : null">
+                                    <span class="glyphicon glyphicon-arrow-up"></span> {{orderUpButtonText}}
+                                </button>
+                                <button type="button" v-if="buttons.order" 
+                                    class="btn btn-sm btn-primary"
+                                    :class="{disabled: !isItemDownOrderable(n-1)}"
+                                    :disabled="!isItemDownOrderable(n-1)"
+                                    @click="isItemDownOrderable(n-1) ? orderDown(n-1) : null">
+                                    <span class="glyphicon glyphicon-arrow-down"></span> {{orderDownButtonText}}
+                                </button>
+                                <button type="button" v-if="buttons.remove" 
+                                    class="btn btn-sm btn-danger"
+                                    :class="{disabled: !isItemRemovable(n-1)}"
+                                    :disabled="!isItemRemovable(n-1)"
+                                    @click="isItemRemovable(n-1) ? remove(n-1) : null">
                                     <span class="glyphicon glyphicon-trash"></span> {{removeButtonText}}
                                 </button>
                             </slot>
@@ -71,9 +85,9 @@
                 type: Object,
                 default(){
                     return {
-                        lg: [11, 1],
-                        sm: [10, 2],
-                        xs: [10, 2]
+                        lg: [9, 3],
+                        sm: [8, 4],
+                        xs: [8, 4]
                     };
                 }
             }

@@ -3,7 +3,7 @@
         <list-editor :has-head="hasHead"
                      :initial-count="items.length"
                      :step="3"
-                     :min-count="0"
+                     :min-count="1"
                      :max-count="10"
                      add-button-text="新增定制"
                      remove-button-text="删除"

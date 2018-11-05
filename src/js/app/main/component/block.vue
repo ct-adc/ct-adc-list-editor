@@ -10,6 +10,7 @@
                      :buttons="buttons"
                      :visible="visible"
                      :is-removable="isRemovable"
+                     :is-orderable="isOrderable"
                      @add="add"
                      @remove="remove"
                      @toggle="toggle"
@@ -42,7 +43,7 @@ export default {
     data(){
         return {
             buttons: {
-                order: false,
+                order: true,
                 remove: true
             },
             items: [{
@@ -72,7 +73,10 @@ export default {
     },
     methods: {
         isRemovable(index){
-            return index === 1;
+            return this.items[index].name === 'a1';
+        },
+        isOrderable(index){
+            return this.items[index].name === 'a1';
         },
         toggle(index){
             this.items.map((item, i)=>{

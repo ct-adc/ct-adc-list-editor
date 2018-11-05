@@ -28,7 +28,7 @@
                                     @click="isItemDownOrderable(n-1) ? orderDown(n-1) : null">
                                     <span class="glyphicon glyphicon-arrow-down"></span> {{orderDownButtonText}}
                                 </button>
-                                <button type="button" v-if="buttons.remove" 
+                                <button type="button" v-if="buttons.remove &&  n > minCount" 
                                     class="btn btn-xs btn-danger" 
                                     :class="{disabled: !isItemRemovable(n-1)}"
                                     :disabled="!isItemRemovable(n-1)" 

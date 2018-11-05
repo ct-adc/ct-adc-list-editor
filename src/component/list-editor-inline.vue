@@ -28,7 +28,7 @@
                             </slot>
                         </div>
                         <div :class="secondGridClass">
-                            <slot name="list-button" v-if="n > minCount" :index="n-1">
+                            <slot name="list-button" :index="n-1">
                                 <button type="button" v-if="buttons.order"
                                     class="btn btn-sm btn-primary"
                                     :class="{disabled: !isItemUpOrderable(n-1)}"
@@ -43,7 +43,7 @@
                                     @click="isItemDownOrderable(n-1) ? orderDown(n-1) : null">
                                     <span class="glyphicon glyphicon-arrow-down"></span> {{orderDownButtonText}}
                                 </button>
-                                <button type="button" v-if="buttons.remove" 
+                                <button type="button" v-if="buttons.remove && n > minCount" 
                                     class="btn btn-sm btn-danger"
                                     :class="{disabled: !isItemRemovable(n-1)}"
                                     :disabled="!isItemRemovable(n-1)"
